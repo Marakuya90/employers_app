@@ -24,7 +24,7 @@ const EmployersListItem = ({name, salary, increase}) => {
                 className="btn-trash btn-sm">
                     <i className="fas fa-trash"></i>
                 </button>
-                <i class="fas fa-star"></i>
+                <i className="fas fa-star"></i>
                 
             </div>
         </li>
