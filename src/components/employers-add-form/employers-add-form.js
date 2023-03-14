@@ -6,7 +6,7 @@ class EmployersAddForms extends Component {
         super(props);
         this.state = {
             name: '',
-            salary: 0
+            salary: ''
         }
     }
 
@@ -14,6 +14,17 @@ class EmployersAddForms extends Component {
         this.setState ({
             [e.target.name]: e.target.value
         })
+    }
+
+    addItem = (e) => {
+        e.preventDefault();
+
+        const newItem = {
+            name: e.target.name.value,
+            salary: e.target.salary.value,
+            increase: false,
+        };
+        return (newItem);
     }
 
     render() {
@@ -24,7 +35,8 @@ class EmployersAddForms extends Component {
             <div className="app-add-form">
                 <h3>Добавьте нового сотрудника</h3>
                 <form
-                    className="add-form d-flex">
+                    className="add-form d-flex"
+                    onSubmit={this.addItem}>
                     <input 
                         name='name'
                         value={name}

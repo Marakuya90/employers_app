@@ -3,7 +3,7 @@ import './employers-list.css';
 
 
 
-const EmployersList = ({data, onDelete}) => {
+const EmployersList = ({data, onDelete, onSubmit}) => {
     
     const element = data.map(item => {
 
@@ -12,7 +12,8 @@ const EmployersList = ({data, onDelete}) => {
             <EmployersListItem 
             key = {id} 
             {...itemProps}
-            onDelete={() => onDelete(id)}/>
+            onDelete={() => onDelete(id)}
+            onSubmit={() => onSubmit(...itemProps)}/>
         )
     })
 
