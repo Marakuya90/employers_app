@@ -20,6 +20,7 @@ class App extends Component {
                 { name: 'Gosudarev D', salary: '2000', increase: false, id: '4' }
             ]
         }
+        this.maxId = 4;
     }
 //удаление элементов из state(принцип иммутабельности)
     deleteItem = (id) => {
@@ -31,6 +32,21 @@ class App extends Component {
         })
     }
 
+//добавление новых пользователей
+addItem = (name, salary) => {
+    const newItem = {
+        name, 
+        salary,
+        increase: false,
+        id: this.maxId++
+    }
+    this.setState(({data}) => {
+        const newArr = [...data, newItem];
+        return {
+            data: newArr
+        }
+    });
+}
 
     render() {
         const{data} = this.state
@@ -47,11 +63,10 @@ class App extends Component {
                     data={data}
                     onDelete={this.deleteItem}
                     onSumbit={this.addItem} />
-                <EmployersAddForms />
+                <EmployersAddForms onAdd = {this.addItem}/>
             </div>
         )
     }
 }
-
 
 export default App;
