@@ -33,39 +33,41 @@ class App extends Component {
 
     //добавление новых пользователей
     addItem = (name, salary) => {
-        const newItem = {
-            name,
-            salary,
-            increase: false,
-            rise: false,
-            id: this.maxId++
-        }
-        this.setState(({ data }) => {
-            const newArr = [...data, newItem];
-            return {
-                data: newArr
+        if (name.length > 3 & salary > 100) {
+            const newItem = {
+                name,
+                salary,
+                increase: false,
+                rise: false,
+                id: this.maxId++
             }
-        });
+            this.setState(({ data }) => {
+                const newArr = [...data, newItem];
+                return {
+                    data: newArr
+                }
+            });
+        }
     }
     //переключение prop
     onToggleProp = (id, prop) => {
-        this.setState(({data}) => ({
+        this.setState(({ data }) => ({
             data: data.map(item => {
-                if (item.id === id){
-                    return {...item, [prop]:!item[prop]}
+                if (item.id === id) {
+                    return { ...item, [prop]: !item[prop] }
                 }
                 return item;
             })
         }))
     }
-  
+
     render() {
         const employees = this.state.data.length;
-        const increased = this.state.data.filter(item =>item.increase).length;
+        const increased = this.state.data.filter(item => item.increase).length;
         return (
             <div className="app" >
                 <AppInfo amountEmployees={employees}
-                employeesIncrease={increased}/>
+                    employeesIncrease={increased} />
 
                 <div className="search-panel">
                     <SearchPanel />
@@ -75,7 +77,7 @@ class App extends Component {
                 <EmployersList
                     data={this.state.data}
                     onDelete={this.deleteItem}
-                    onToggleProp = {this.onToggleProp}/>
+                    onToggleProp={this.onToggleProp} />
                 <EmployersAddForms onAdd={this.addItem} />
             </div>
         )
