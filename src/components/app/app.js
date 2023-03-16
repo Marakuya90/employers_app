@@ -13,13 +13,15 @@ class App extends Component {
         super(props);
         this.state = {
             data: [
-                { name: 'Romashkin A', salary: '3000', increase: true, rise: false, id: '1' },
-                { name: 'Petrov A', salary: '2000', increase: false, rise: false, id: '2' },
-                { name: 'Ivanov I', salary: '1000', increase: false, rise: false, id: '3' },
-                { name: 'Gosudarev D', salary: '2000', increase: false, rise: false, id: '4' }
+                { name: 'Romashkin A', salary: '3000', increase: true, rise: true, id: 1 },
+                { name: 'Petrov A', salary: '2000', increase: false, rise: false, id: 2 },
+                { name: 'Ivanov I', salary: '1000', increase: false, rise: false, id: 3 },
+                { name: 'Gosudarev D', salary: '2000', increase: false, rise: false, id: 4 }
             ]
         }
         this.maxId = 5;
+        
+        console.log(Object.keys(this.state.data).length);
     }
 
     //удаление элементов из state(принцип иммутабельности)
@@ -49,17 +51,47 @@ class App extends Component {
     }
     //переключение increase
     onToggleIncrease = (id) => {
-        console.log(id);
+        // this.setState(({data}) => {
+        //     const index = data.findIndex(elem => elem.id === id);
+
+        //     const old = data[index];
+        //     const newItem = {...old, increase:!old.increase};
+        //     const newArr = [...data.slice(0,index),newItem,...data.slice(index + 1)]
+        //     return {
+        //         data:newArr
+        //     }
+        // })
+        //с использованием метода map
+        this.setState(({data}) => ({
+            data: data.map(item => {
+                if (item.id === id){
+                    return {...item, increase:!item.increase}
+                }
+                return item;
+            })
+        }))
+        
     }
     //переключение rise
     onToggleRise = (id) => {
-        console.log(id);
+        this.setState(({data}) => ({
+            data: data.map(item => {
+                if (item.id === id){
+                    return {...item, rise:!item.rise}
+                }
+                return item;
+            })
+        }))
     }
-
+    //учет количества сотрудников
+  
     render() {
+        const employees = this.state.data.length;
+        const increased = this.state.data.filter(item =>item.increase).length;
         return (
             <div className="app" >
-                <AppInfo />
+                <AppInfo amountEmployees={employees}
+                employeesIncrease={increased}/>
 
                 <div className="search-panel">
                     <SearchPanel />
