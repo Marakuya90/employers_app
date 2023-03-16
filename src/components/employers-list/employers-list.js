@@ -3,7 +3,7 @@ import './employers-list.css';
 
 
 
-const EmployersList = ({data, onDelete}) => {
+const EmployersList = ({data, onDelete, onToggleIncrease, onToggleRise}) => {
     
     const element = data.map(item => {
 
@@ -12,7 +12,9 @@ const EmployersList = ({data, onDelete}) => {
             <EmployersListItem 
             key = {id} 
             {...itemProps}
-            onDelete={() => onDelete(id)}/>
+            onDelete={() => onDelete(id)}
+            onToggleIncrease={() => onToggleIncrease(id)}
+            onToggleRise={() => onToggleRise(id)}/>
         )
     })
 

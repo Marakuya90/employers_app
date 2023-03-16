@@ -11,45 +11,52 @@ import './app.css';
 class App extends Component {
     constructor(props) {
         super(props);
-
         this.state = {
             data: [
-                { name: 'Romashkin A', salary: '3000', increase: true, id: '1' },
-                { name: 'Petrov A', salary: '2000', increase: false, id: '2' },
-                { name: 'Ivanov I', salary: '1000', increase: false, id: '3' },
-                { name: 'Gosudarev D', salary: '2000', increase: false, id: '4' }
+                { name: 'Romashkin A', salary: '3000', increase: true, rise: false, id: '1' },
+                { name: 'Petrov A', salary: '2000', increase: false, rise: false, id: '2' },
+                { name: 'Ivanov I', salary: '1000', increase: false, rise: false, id: '3' },
+                { name: 'Gosudarev D', salary: '2000', increase: false, rise: false, id: '4' }
             ]
         }
-        this.maxId = 4;
+        this.maxId = 5;
     }
-//удаление элементов из state(принцип иммутабельности)
+
+    //удаление элементов из state(принцип иммутабельности)
     deleteItem = (id) => {
-        this.setState(({data}) => {
+        this.setState(({ data }) => {
             return {
                 data: data.filter(item => item.id !== id)
             }
-
         })
     }
 
-//добавление новых пользователей
-addItem = (name, salary) => {
-    const newItem = {
-        name, 
-        salary,
-        increase: false,
-        id: this.maxId++
-    }
-    this.setState(({data}) => {
-        const newArr = [...data, newItem];
-        return {
-            data: newArr
+    //добавление новых пользователей
+    addItem = (name, salary) => {
+        const newItem = {
+            name,
+            salary,
+            increase: false,
+            rise: false,
+            id: this.maxId++
         }
-    });
-}
+        this.setState(({ data }) => {
+            const newArr = [...data, newItem];
+            return {
+                data: newArr
+            }
+        });
+    }
+    //переключение increase
+    onToggleIncrease = (id) => {
+        console.log(id);
+    }
+    //переключение rise
+    onToggleRise = (id) => {
+        console.log(id);
+    }
 
     render() {
-        const{data} = this.state
         return (
             <div className="app" >
                 <AppInfo />
@@ -60,10 +67,11 @@ addItem = (name, salary) => {
                 </div>
 
                 <EmployersList
-                    data={data}
+                    data={this.state.data}
                     onDelete={this.deleteItem}
-                    onSumbit={this.addItem} />
-                <EmployersAddForms onAdd = {this.addItem}/>
+                    onToggleIncrease={this.onToggleIncrease}
+                    onToggleRise={this.onToggleRise} />
+                <EmployersAddForms onAdd={this.addItem} />
             </div>
         )
     }
