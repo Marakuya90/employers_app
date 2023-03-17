@@ -18,7 +18,8 @@ class App extends Component {
                 { name: 'Ivanov I', salary: '1000', increase: false, rise: false, id: 3 },
                 { name: 'Gosudarev D', salary: '2000', increase: false, rise: false, id: 4 }
             ],
-            term: ''
+            term: '',
+            filter: 'all'
         }
         this.maxId = 5;
     }
@@ -63,7 +64,7 @@ class App extends Component {
     }
     // реализация поиска
     searchEmp = (items, term) => {
-        if(term.length === 0) {
+        if (term.length === 0) {
             return items;
         }
 
@@ -73,23 +74,40 @@ class App extends Component {
     }
 
     onUpdateSearch = (term) => {
-        this.setState({term});
+        this.setState({ term });
+    }
+
+    //реализация фильтров
+    filterPost = (items, filter) => {
+        switch (filter) {
+            case 'rise':
+                return items.filter(item => item.rise);
+            case 'moreThen1000':
+                return items.filter(item => item.salary > 1000);
+            default:
+                return items;
+        }
+    }
+    onFilterSelect = (filter) => {
+        this.setState({filter});
     }
 
     render() {
-        const{data, term} = this.state;
+        const { data, term, filter } = this.state;
         const employees = data.length;
         const increased = data.filter(item => item.increase).length;
-        const visibleData = this.searchEmp(data,term);
+        const visibleData = this.filterPost(this.searchEmp(data, term), filter);
         return (
             <div className="app" >
                 <AppInfo amountEmployees={employees}
                     employeesIncrease={increased} />
 
                 <div className="search-panel">
-                    <SearchPanel 
-                    onUpdateSearch={this.onUpdateSearch}/>
-                    <AppFilter />
+                    <SearchPanel
+                        onUpdateSearch={this.onUpdateSearch} />
+                    <AppFilter
+                        filter={filter}
+                        onFilterSelect={this.onFilterSelect} />
                 </div>
 
                 <EmployersList
