@@ -61,7 +61,7 @@ class App extends Component {
             })
         }))
     }
-
+    // реализация поиска
     searchEmp = (items, term) => {
         if(term.length === 0) {
             return items;
@@ -70,6 +70,10 @@ class App extends Component {
         return items.filter(item => {
             return item.name.indexOf(term) > -1;
         })
+    }
+
+    onUpdateSearch = (term) => {
+        this.setState({term});
     }
 
     render() {
@@ -83,7 +87,8 @@ class App extends Component {
                     employeesIncrease={increased} />
 
                 <div className="search-panel">
-                    <SearchPanel />
+                    <SearchPanel 
+                    onUpdateSearch={this.onUpdateSearch}/>
                     <AppFilter />
                 </div>
 
