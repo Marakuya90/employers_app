@@ -37,7 +37,7 @@ class EmployersAddForms extends Component {
                     <input 
                         name='name'
                         value={name}
-                        onChange = {this.onValueChange}
+                        onChange={this.onValueChange}
                         type="text"
                         className="form-control new-post-label"
                         placeholder="Как его зовут?" />
