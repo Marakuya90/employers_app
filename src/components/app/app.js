@@ -62,6 +62,18 @@ class App extends Component {
             })
         }))
     }
+    //изменение зп
+    changeSalary = (id, salary) => {
+        this.setState = (({ data }) => ({
+            data: data.map(item => {
+                if (item.id === id) {
+                    return {...item, salary: salary}
+                }
+                return item;
+            })
+        }))
+    }
+
     // реализация поиска
     searchEmp = (items, term) => {
         if (term.length === 0) {
@@ -88,7 +100,7 @@ class App extends Component {
         }
     }
     onFilterSelect = (filter) => {
-        this.setState({filter});
+        this.setState({ filter });
     }
 
     render() {
@@ -112,7 +124,8 @@ class App extends Component {
                 <EmployersList
                     data={visibleData}
                     onDelete={this.deleteItem}
-                    onToggleProp={this.onToggleProp} />
+                    onToggleProp={this.onToggleProp}
+                    onChangeSalary={this.changeSalary} />
                 <EmployersAddForms onAdd={this.addItem} />
             </div>
         )
