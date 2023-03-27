@@ -4,16 +4,16 @@ import './employers-list-item.css';
 class EmployersListItem extends Component {
     constructor(props){
         super(props);
-        this.state = {
-            salary: ''
-        }
+        // this.state = {
+        //     salary: ''
+        // }
     }
 
     onSetValue = (e) => {
-        this.props.onChangeSalary(this.state.salary);
-        this.setState({
-            salary: [e.target.value] + '$'
-        })
+        this.props.onChangeSalary(e.target.value);
+        // this.setState({
+        //     salary: [e.target.value] + '$'
+        // })
 
     }
 
